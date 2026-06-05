@@ -38,8 +38,16 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
-      - name: Build
+      - name: Build main site
         run: npm run build
+      - name: Install CRM demo dependencies
+        run: npm ci
+        working-directory: ./crm-demo
+      - name: Build CRM demo
+        run: npm run build
+        working-directory: ./crm-demo
+      - name: Move CRM demo to subdirectory
+        run: mv crm-demo/dist dist/crmdemo
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
